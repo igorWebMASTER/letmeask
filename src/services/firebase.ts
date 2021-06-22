@@ -4,18 +4,20 @@ import 'firebase/database'
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDnEnJUsyUfkRNdkjBEEP3TKoAIW6tTGX4",
-    authDomain: "letmeask-1ee68.firebaseapp.com",
-    databaseURL: "https://letmeask-1ee68-default-rtdb.firebaseio.com",
-    projectId: "letmeask-1ee68",
-    storageBucket: "letmeask-1ee68.appspot.com",
-    messagingSenderId: "343940786635",
-    appId: "1:343940786635:web:ea1588c395e6a3b3c06e4e"
+    apiKey: process.env.REACT_APP_API_KEY_FIREBASE,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket:process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID
   };
 
   firebase.initializeApp(firebaseConfig)
 
 
-  export const auth = firebase.auth()
+ const auth = firebase.auth()
 
-  export const database = firebase.database()
+ const database = firebase.database()
+
+ export { firebase, auth, database}
