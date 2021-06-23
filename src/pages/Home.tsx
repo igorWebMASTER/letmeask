@@ -1,6 +1,6 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import { useHistory } from 'react-router'
 
-import { firebase, auth } from '../services/firebase'
 
 import IlustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
@@ -11,23 +11,19 @@ import { Button } from '../components/Button'
 
 import '../styles/auth.scss'
 
+import { useAuth } from '../hooks/useAuth'
+
 export function Home(){
     const history = useHistory();
+    const { signInWithGoogle, user }  = useAuth()
+    
 
-    function signIn(){
-
-    }
-
-    function handleCreateRoom(){
-        const provider = new firebase.auth.GoogleAuthProvider();
-
-        auth.signInWithPopup(provider).then(result=> {
-            console.log(result)
-
-            history.push('/rooms/new')
-
-        })
-
+    async function handleCreateRoom(){
+        if(!user){
+           await signInWithGoogle()
+        }
+       
+        history.push('/rooms/new')
     }
 
     return (
@@ -39,20 +35,20 @@ export function Home(){
            </aside>
            <main>
                <div className="main-content">
-                <img src={logoImg} alt="Letmeask" />
-                <button onClick={handleCreateRoom} className="create-room">
-                    <img src={googleIcon} alt="Logo do google" />
-                    Crie sua sala com o Google
-                </button>
-               <div className="separator">
-                   ou entre em uma sala
-               </div>
-               <form action="">
-                   <input type="text" name="" placeholder="Digite uma sala" id="" />
-                   <Button type="submit">
-                        Entrar na sala 
-                   </Button>
-               </form>
+                    <img src={logoImg} alt="Letmeask" />
+                    <button onClick={handleCreateRoom} className="create-room">
+                        <img src={googleIcon} alt="Logo do google" />
+                        Crie sua sala com o Google
+                    </button>
+                    <div className="separator">
+                        ou entre em uma sala
+                    </div>
+                    <form action="">
+                        <input type="text" name="" placeholder="Digite uma sala" id="" />
+                        <Button type="submit">
+                                Entrar na sala 
+                        </Button>
+                    </form>
                </div>
            </main>
        </div> 
