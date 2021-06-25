@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { useState } from 'react'
 import { useRef } from 'react'
 import { FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import IlustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
@@ -15,6 +15,7 @@ import { database } from '../services/firebase'
 import '../styles/auth.scss'
 
 export function NewRoom(){
+    const history = useHistory();
     const { user} = useContext(AuthContext);
 
     const [newRoom, setNewRoom] = useState('');
@@ -34,6 +35,8 @@ export function NewRoom(){
             authorId: user?.id,
         })
 
+
+        history.push(`/rooms/:${firebaseRoom.key}`)
 
     }
  
